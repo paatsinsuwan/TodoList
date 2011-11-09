@@ -1,0 +1,2 @@
+2011-11-08 19:59:32 Warning: Warning (2): substr() expects parameter 2 to be long, string given in [/Users/paatsinsuwan/Sites/backbone/todoslist/app/controllers/todos_controller.php, line 59]
+2011-11-08 19:59:52 Warning: Warning (2): substr() expects parameter 3 to be long, string given in [/Users/paatsinsuwan/Sites/backbone/todoslist/app/controllers/todos_controller.php, line 59]

@@ -1,0 +1,62 @@
+body{
+	font-family: 'Helvetica';
+	color: #fff;
+	background-color: #333;
+}
+a{
+	color: #fff;
+}
+#content{
+	width: 50%;
+	margin: auto;
+	text-align: center;
+	border: 2px solid #999;
+	padding: 10px 0px 30px 0px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #777;
+}
+fieldset{
+	border: none;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+#content ul li{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+#helper{
+	margin-top: 30px;
+}
+.input{
+	display: inline;
+}
+.submit{
+	display: inline;
+}
+#content ul li:first-child {
+	margin-bottom: 10px;
+}
+.list{
+	text-align: left;
+	margin: 0 30px !important;
+}
+.list input{
+	margin-right: 10px !important;
+}
+.list img{
+	cursor: pointer;
+}
+.newItem{
+	color: #aaa;
+}
+.editing{
+	color: #000;
+}
+.done{
+	text-decoration: line-through;
+}

@@ -1,6 +1,3 @@
-[submodule "utils"]
-	path = app/plugins/utils
-	url = https://github.com/CakeDC/utils.git
 [submodule "app/plugins/utils"]
 	path = app/plugins/utils
 	url = https://github.com/CakeDC/utils.git

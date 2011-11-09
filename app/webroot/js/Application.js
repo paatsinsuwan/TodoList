@@ -96,7 +96,7 @@ addNewItem = function(el){
 				link.bind('click', removeItem).append(image);
 				li.append(hidden).append(checkbox).append(span).append(link);
 				$('#todolist').append(li);
-				$('')
+				$('.newItem').focus();
 			}
 		}
 	});

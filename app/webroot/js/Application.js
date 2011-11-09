@@ -72,21 +72,21 @@ addNewItem = function(el){
 				hidden = $('<input />').attr({
 					'type': 'hidden',
 					'name': 'data[todo]',
-					'id': 'todo_'+res['Todo']['id'],
+					'id': 'todo_'+res['data']['Todo']['id'],
 					'value': 0
 				});
 				checkbox = $('<input />').attr({
 					'type': 'checkbox',
 					'name': 'data[todo]',
-					'id': 'todo_'+res['Todo']['id'],
+					'id': 'todo_'+res['data']['Todo']['id'],
 					'class': 'mark',
 					'value': 1
 				});
 				checkbox.bind('click', toggleMark);
-				span = $('<span />').append(res['Todo']['title']);
+				span = $('<span />').append(res['data']['Todo']['title']);
 				span.bind('dblclick', editItem);
 				link = $('<a />').attr({
-					'href': '/todos/delete/'+res['Todo']['id'],
+					'href': '/todos/delete/'+res['data']['Todo']['id'],
 				});
 				image = $('<img />').attr({
 					'src': '/img/close_button.png',
@@ -110,7 +110,7 @@ removeItem = function(e){
 		type: "POST",
 		dataType: 'json',
 		success: function(res){
-			if(res['success']){
+			if(res['status'] == 'success'){
 				self.parent().remove();
 			}
 		}
@@ -125,7 +125,7 @@ toggleMark = function(){
 		data: $(this).serialize(),
 		dataType: 'json',
 		success: function(res){
-			if(res['Todo']['done']){
+			if(res['data']['Todo']['done']){
 				li = self.parent().find('span').addClass('done');
 			}
 			else{

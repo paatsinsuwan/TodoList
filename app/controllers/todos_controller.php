@@ -19,14 +19,21 @@ class TodosController extends AppController {
 	}
 
 	function add() {
-		if($this->RequestHandler->isAjax()){
-			Configure::write('debug', 0);
-			$this->autoRender = false;
-			header('Content-Type: application/json');
-			$this->Todo->create();
-			if($this->Todo->save($this->data)){
-				$todo = $this->Todo->findById($this->Todo->getLastInsertId());
-				echo json_encode($todo);
+		if($this->JsonResponse->shouldRespond()){
+			if (!empty($this->data)) {
+				$this->Todo->create();
+				if ($this->Todo->save($this->data)) {
+					$this->JsonResponse->set(array(
+						'message' => __('The todo has been saved', true),
+						'data' => $this->Todo->findById($this->Todo->getLastInsertId())
+					));
+				} else {
+					$this->JsonResponse->set(array(
+						'message' => __('The todo could not be saved. Please, try again.', true),
+						'status' => 'error',
+					));
+				}
+				$this->JsonResponse->respond();
 			}
 		}
 		else{
@@ -43,15 +50,28 @@ class TodosController extends AppController {
 	}
 
 	function edit($id = null) {
-		if($this->RequestHandler->isAjax()){
-			Configure::write('debug', 0);
-			$this->autoRender = false;
-			header('Content-Type: application/json');
-			if($this->Todo->save($this->data)){
-				echo json_encode(array('success' => 'true', 'data' => $this->Todo->findById($id)));
+		if($this->JsonResponse->shouldRespond()){
+			if(!$id && empty($this->data)){
+				$this->JsonResponse->set(array(
+					'message' => __('invalid todo', true),
+					'status' => 'error',
+				));
+				$this->JsonResponse->respond();
 			}
-			else{
-				echo json_encode(array('success' => 'false'));
+			if(!empty($this->data)){
+				if($this->Todo->save($this->data)){
+					$this->JsonResponse->set(array(
+						'message' => __('The todo has been saved', true),
+						'data' => $this->Todo->findById($id),
+					));
+				}
+				else{
+					$this->JsonResponse->set(array(
+						'message' => __('The todo could not be saved. Please, try again.', true),
+						'status' => 'error',
+					));
+				}
+				$this->JsonResponse->respond();
 			}
 		}
 		else{
@@ -74,31 +94,42 @@ class TodosController extends AppController {
 	}
 	
 	function mark($id = null) {
-		if($this->RequestHandler->isAjax()){
-			Configure::write('debug', 0);
-			$this->autoRender = false;
-			header('Content-Type: application/json');
+		if($this->JsonResponse->shouldRespond()){
 			$todo = $this->Todo->findById(substr($id, 5));
 			$todo['Todo']['done'] = false;
 			if(!empty($this->data['todo'])){
 				$todo['Todo']['done'] = true;
 			}
-			$this->Todo->save($todo);
-			echo json_encode($todo);
+			if($this->Todo->save($todo)){
+				$this->JsonResponse->set(array(
+					'message' => __('The record is marked.', true),
+					'data' => $todo,
+				));
+			}
+			else{
+				$this->JsonResponse->set(array(
+					'status' => 'error',
+					'message' => __('The record is not marked.', true),
+				));
+			}
+			$this->JsonResponse->respond();
 		}
 	}
 
 	function delete($id = null) {
-		if($this->RequestHandler->isAjax()){
-			Configure::write('debug', 0);
-			$this->autoRender = false;
-			header('Content-Type: application/json');
+		if($this->JsonResponse->shouldRespond()){
 			if($this->Todo->delete($id)){
-				echo json_encode(array("success" => true));
+				$this->JsonResponse->set(array(
+					'message' => __('The record is deleted.', true),
+				));
 			}
 			else{
-				echo json_encode(array("success" => false));
+				$this->JsonResponse->set(array(
+					'status' => 'error',
+					'message' => __('The record is not deleted.', true),
+				));
 			}
+			$this->JsonResponse->respond();
 		}
 		else{
 			if (!$id) {

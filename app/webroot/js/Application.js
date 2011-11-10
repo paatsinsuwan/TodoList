@@ -34,7 +34,6 @@ editItem = function(e){
 		'name': 'data[Todo][title]',
 		'value': $(this).html()
 	});
-	input.val($(this).html());
 	tmpObject = $(this);
 	$(this).replaceWith(input);
 	input.focus();
@@ -45,7 +44,7 @@ editItem = function(e){
 				url: '/todos/edit/'+ self.attr('alt'),
 				type: 'POST', 
 				data: input.serialize(),
-				dataTyep: 'json',
+				dataType: 'json',
 				success: function(res){
 					tmpObject.bind('dblclick', editItem);
 					input.replaceWith(tmpObject.html(res['data']['Todo']['title']));

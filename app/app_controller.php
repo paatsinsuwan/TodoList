@@ -33,5 +33,5 @@
  * @link http://book.cakephp.org/view/957/The-App-Controller
  */
 class AppController extends Controller {
-	var $components = array('JsonResponse');
+	var $components = array('JsonResponse', 'Session');
 }
